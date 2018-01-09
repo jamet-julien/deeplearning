@@ -1,4 +1,4 @@
-import Matrix from './matrix.js';
+import Matrix from '../src/matrix.js';
 
 
 describe('first test', ()=>{
@@ -70,6 +70,14 @@ describe('first test', ()=>{
     mb.matrice = [[1, 2], [3, 4], [5, 6]];
     let result = ma.multiply( mb);
     expect(result.matrice).toEqual([[22, 28], [49, 64]]);
+  });
+
+  it('transpose matrice', () => {
+    let ma = new Matrix(2, 3);
+    ma.matrice = [[1, 2, 3], [4, 5, 6]];
+    
+    let result = ma.transpose();
+    expect(result.matrice).toEqual([[ 1, 4], [ 2, 5], [ 3, 6]]);
   });
 
 });
