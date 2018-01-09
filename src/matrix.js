@@ -45,14 +45,8 @@ function multiply(value) {
 }
 
 function transpose(){
-
   let _Matrice = Matrice( this.cols, this.rows);
-  for( let i = 0; i < this.rows; i++){
-    for (let j = 0; j < this.cols; j++){
-      _Matrice.matrice[j][i] = this.matrice[i][j];
-    }
-  }
-  
+  _Matrice.matrice = _Matrice.matrice.map((row, j) => row.map((cell, i) => this.matrice[i][j]));
   return _Matrice;
 }
 
