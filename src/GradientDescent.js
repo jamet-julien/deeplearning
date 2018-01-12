@@ -2,7 +2,7 @@
 
 function GradientDescent() {
   let _public = {
-    point: new Set(),
+    point: [],
     treat,
     calculate,
     rate: 0.5,
@@ -17,14 +17,16 @@ function GradientDescent() {
   function treat() {
     let deltaM = 0;
     let deltaB = 0;
+    let iLen   = this.point.length;
 
-    for (let { x, y } of this.point) {
-      
-      let yGuess = this.m * x + this.b;
-      let error  = y - yGuess;
+    for (let i = 0 ; i < iLen ; i++) {
 
-      deltaM += x * error * (2/this.point.size);
-      deltaB += error * (2/this.point.size);
+      let { x, y } = this.point[ i];
+      let yGuess   = this.m * x + this.b;
+      let error    = y - yGuess;
+
+      deltaM += x * error * (2/iLen);
+      deltaB += error * (2/iLen);
     }
     
     this.m += deltaM * this.rate;

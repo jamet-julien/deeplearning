@@ -7,7 +7,6 @@ import GradientDescent from './GradientDescent.js'
 const canvas  = document.getElementById('game'),
       context = canvas.getContext('2d');
 
-
 function background( ctx){
   ctx.fillStyle = '#333';
   ctx.fillRect(0, 0, 800, 600);
@@ -15,28 +14,53 @@ function background( ctx){
 
 async function init(){
   
-  function addPoint(){
+  /**
+   * 
+   */
+  function addPointRandom(){
     let point = Point({
       x: Math.random(),
       y: Math.random(),
     });
 
-    oGradient.point.add(point);
+    oGradient.point.push( point);
     render.layer.add(point.draw.bind(point));
   }
 
+  /**
+   * 
+   * @param {*} _x 
+   * @param {*} _y 
+   */
+  function updatePoint(_x, _y) {
+    
+    let point = oGradient.point[indexClick % 2];
+  
+    point.x = _x / 800;
+    point.y = _y / 600;
+  }
 
-  let timer     = Timer( 1/60),
-      render    = Render( context),
-      oLine     = Line(),
-      oGradient = GradientDescent(),
+
+  let timer       = Timer( 1/100),
+      render      = Render( context),
+      oLine       = Line(),
+      oGradient   = GradientDescent(),
       timeUp      = 3,
+      indexClick  = 0,
       timeCurrent = 0;
+  
+
+
+  canvas.addEventListener( 'click', ({ offsetX, offsetY }) => {
+
+    indexClick++;
+    updatePoint( offsetX, offsetY);
+  });
 
   render.layer.add( background);
 
   for(let i= 0; i < 2; i++){
-   addPoint();
+    addPointRandom();
   }
 
   render.layer.add( oLine.draw.bind( oLine));
@@ -45,13 +69,6 @@ async function init(){
     oGradient.treat();
     oLine.start.y = oGradient.calculate( oLine.start.x);
     oLine.end.y   = oGradient.calculate( oLine.end.x);
-
-    if( timeCurrent > timeUp){
-      timeCurrent = 0;
-      addPoint();
-    }
-
-    timeCurrent += frq;
   }
 
   timer.draw = () => {
