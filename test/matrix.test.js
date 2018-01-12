@@ -1,7 +1,7 @@
 import Matrix from '../src/matrix.js';
 
 
-describe('first test', ()=>{
+describe('Matrix test', ()=>{
   
   it( 'init Matrix', ()=>{
       let ma = new Matrix(2, 2);

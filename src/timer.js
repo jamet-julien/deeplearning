@@ -15,6 +15,8 @@ export default function Timer(frq) {
   function proxiPlay(iTime) {
     _cumulateTime += ((iTime - _lastTime) || 0) / 1000;
 
+    _cumulateTime = (_cumulateTime > 1) ? 1 : _cumulateTime;
+
     while (_cumulateTime > frq) {
       _public.update(frq);
       _cumulateTime -= frq;
