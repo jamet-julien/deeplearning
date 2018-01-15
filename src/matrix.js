@@ -5,7 +5,7 @@ function add(value) {
   if( value.matrice){  
     _Matrice.matrice = this.matrice.map((col, j) => col.map((cell, i) => cell += value.matrice[j][i]));
   }else{
-    _Matrice.matrice = this.matrice.map(col => col.map(cell => cell += value));
+    _Matrice = this.map( cell => cell += value);
   }
 
   return _Matrice;
@@ -37,8 +37,7 @@ function multiply(value) {
     }
 
   }else{
-    _Matrice     = Matrice(this.rows, this.cols);
-    _Matrice.matrice = this.matrice.map(col => col.map(cell => cell *= value));
+    _Matrice = this.map(cell => cell *= value);
   }
 
   return _Matrice;
@@ -50,13 +49,33 @@ function transpose(){
   return _Matrice;
 }
 
-function randomize( min = 0, max = 10) {
-  let _fn = _ => Math.ceil( (Math.random() * (max-min)) + min);
+function randomize() {
+  let _fn = _ =>  (Math.random() * 2) - 1;
   let _Matrice = Matrice(this.rows, this.cols);
 
   _Matrice.matrice = this.matrice.map(col => col.map(cell => _fn()));
   return _Matrice;
 }
+
+function toArray(){
+  let arr = [];
+  for (let i = 0; i < this.rows; i++) {
+    for (let j = 0; j < this.cols; j++) {
+      arr.push( this.matrice[i][j])
+    }
+  }
+
+  return arr;
+
+}
+
+function map(fn) {
+  let _Matrice = Matrice(this.rows, this.cols);
+  _Matrice.matrice = this.matrice.map((col,y) => col.map((cell,x) => cell = fn(cell, x, y)));
+  return _Matrice;
+
+}
+
 
 
 const Matrice = (rows, cols) => {
@@ -65,6 +84,8 @@ const Matrice = (rows, cols) => {
     cols,
     add,
     multiply,
+    map,
+    toArray,
     transpose,
     randomize,
     matrice: []
@@ -80,6 +101,12 @@ const Matrice = (rows, cols) => {
   }
 
   return _public;
+}
+
+Matrice.fromArray = (arr) => {
+  let _Matrice = Matrice( 1, arr.length);
+  _Matrice.matrice[0] = arr;
+  return _Matrice.transpose();
 }
 
 

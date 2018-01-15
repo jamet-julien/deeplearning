@@ -38,13 +38,13 @@ describe('Matrix test', ()=>{
     let mb  = ma.add(2);
     expect(row).not.toBe([2, 2]);
   });
-
+/*
   it('randomize matrice', () => {
     let ma = new Matrix(2, 2);
-    let mb = ma.randomize(3, 3);
+    let mb = ma.randomize();
     expect(mb.matrice).toEqual([[3, 3], [3, 3]]);
   });
-
+*/
   it('add matrice / matrice', () => {
     let ma = new Matrix(2, 2);
     let mb = new Matrix(2, 2);
@@ -79,5 +79,17 @@ describe('Matrix test', ()=>{
     let result = ma.transpose();
     expect(result.matrice).toEqual([[ 1, 4], [ 2, 5], [ 3, 6]]);
   });
+
+  it( 'from Array', ()=>{
+    let ma = Matrix.fromArray([1, 2, 3]);
+    expect( ma.matrice).toEqual([[1], [2], [3]]);
+  });
+
+  it('To array result', ()=>{
+    let ma = new Matrix(2, 3);
+    ma.matrice = [[1, 2, 3], [4, 5, 6]];
+    
+    expect( ma.toArray()).toEqual([1, 2, 3, 4, 5, 6]);
+  })
 
 });

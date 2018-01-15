@@ -2,7 +2,8 @@ import Timer  from './timer.js';
 import Render from './render.js';
 import Point  from './element/point.js';
 import Line   from './element/line.js';
-import GradientDescent from './GradientDescent.js'
+import GradientDescent from './GradientDescent.js';
+import NeuralNetwork from './NeuralNetwork.js';
 
 const canvas  = document.getElementById('game'),
       context = canvas.getContext('2d');
@@ -47,9 +48,11 @@ async function init(){
       oGradient   = GradientDescent(),
       timeUp      = 3,
       indexClick  = 0,
-      timeCurrent = 0;
+      timeCurrent = 0,
+      nn          = NeuralNetwork(2, 2, 1);
   
-
+  let result = nn.feedForward([0,1]);
+  console.log(result);
 
   canvas.addEventListener( 'click', ({ offsetX, offsetY }) => {
 
