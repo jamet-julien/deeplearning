@@ -11,15 +11,28 @@ function add(value) {
   return _Matrice;
 }
 
+function subtract(value) {
+  let _Matrice = Matrice(this.rows, this.cols);
+
+  if (value.matrice) {
+    _Matrice.matrice = this.matrice.map((col, j) => col.map((cell, i) => cell -= value.matrice[j][i]));
+  } else {
+    _Matrice = this.map(cell => cell -= value);
+  }
+
+  return _Matrice;
+}
+
 function multiply(value) {
   let _Matrice;
 
   if (value.matrice) {  
 
+    /*
     if( this.cols !== value.rows){
       throw new Error('The number of column and row are different');
     }
-
+    */
     let a = this,
         b = value;
 
@@ -76,13 +89,12 @@ function map(fn) {
 
 }
 
-
-
 const Matrice = (rows, cols) => {
   let _public = {
     rows,
     cols,
     add,
+    subtract,
     multiply,
     map,
     toArray,

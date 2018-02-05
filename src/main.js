@@ -49,11 +49,29 @@ async function init(){
       timeUp      = 3,
       indexClick  = 0,
       timeCurrent = 0,
-      nn          = NeuralNetwork(2, 2, 1);
+      nn          = NeuralNetwork( 2, 2, 1);
   
-  let result = nn.feedForward([0,1]);
-  console.log(result);
+  let data_training = [
+    {input:[0, 0], target : [0]},
+    {input:[1, 1], target : [0]},
+    {input:[1, 0], target : [1]},
+    {input:[0, 1], target : [1]}
+  ]
 
+  for( let i = 0 ; i < 5000; i++){
+    let num = Math.round( Math.random() * (data_training.length-1));
+    let data = data_training[ num ];
+    nn.train( data.input, data.target);
+  }
+
+
+
+  console.log( [0,1], nn.predict([0,1]));
+  console.log( [1,0], nn.predict([1,0]));
+  console.log( [1,1], nn.predict([1,1]));
+  console.log( [0,0], nn.predict([0,0]));
+
+  /**
   canvas.addEventListener( 'click', ({ offsetX, offsetY }) => {
 
     indexClick++;
@@ -79,7 +97,7 @@ async function init(){
   }
 
   timer.run();
-
+**/
 }
 
 init();
